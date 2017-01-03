@@ -17,21 +17,22 @@ INSERT INTO `members` (`memberID`, `username`, `password`) VALUES
 
 CREATE TABLE IF NOT EXISTS `user_data` (
     `user_data_id` BIGINT NOT NULL AUTO_INCREMENT,
+    `admin` INT NOT NULL DEFAULT 0,
     `memberID` BIGINT DEFAULT NULL,
     `first_name` varchar(64) NOT NULL DEFAULT '',
     `last_name` varchar(64) NOT NULL DEFAULT '',
     `email` varchar(100) NOT NULL DEFAULT '',
     `birthday` DATE NOT NULL,
     `join_date` DATE NOT NULL,
-    `avatar` varchar(300) DAFAULT '',
-    `location` varchar(64) NOT NULL DEFAULT '',
-    `quote` varchar(150) NOT NULL DEFAULT '',
-    `about_me` BIGTEXT NOT NULL FEFAULT '',
+    `avatar` varchar(300) NOT NULL,
+    `location` TEXT NOT NULL,
+    `quote` varchar(150) NOT NULL,
+    `about_me` LONGTEXT NOT NULL,
     PRIMARY KEY (`user_data_id`),
     FOREIGN KEY ('memberID') REFERENCES members(memberID)
 );
 
-INSERT INTO `user_data` (`memberID`, `first_name`, `last_name`, `email`, `birthdaty`, `join_date`, `avatar`, `location`, `quote`, `about_me`) VALUES (1, `First`, `Last`, `email@email.com`, CURDATE(), CURDATE(), `Image URL`, `Earth`, ``, ``);
+INSERT INTO `user_data` (`admin`,`memberID`, `join_date`) VALUES (1, 1, CURDATE(),);
 
 CREATE TABLE IF NOT EXISTS 'games' (
     'game_id' BIGINT NOT NULL AUTO_INCREMENT,

@@ -85,7 +85,7 @@ if (isset($user) && $user != '' ) {
         $user_link = DIR . "/all-games.php/?user=" . $game->member_id;
         echo '<td><a href="' . $user_link . '">' . $game->username .'</a></td>';
         echo '<td>' . $game->score . '</td>';
-        echo '<td><a href="' . DIR . '/view-game/?game=' . $game->game_id . '">View</a></td>';
+        echo '<td><a href="' . DIR . '/view-game.php/?game=' . $game->game_id . '">View</a></td>';
         echo '</tr>';
     }
 }
