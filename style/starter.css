@@ -1,0 +1,83 @@
+/*-------------------------------------------------------+
+| Bowling Statistics
+| Starting CSS Template
++--------------------------------------------------------+
+| Author: Bret Wagner  Email: bretwagner@bwagner-webdev.com
++--------------------------------------------------------+*/
+
+body , html {
+    background-color: #fff;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Domine' serif;
+}
+
+img, object, embed, video {
+    max-width: 100%
+}
+
+h1 {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: normal;
+    font-size: 3em;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: normal;
+    font-size: 2em;
+}
+
+h3 {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: bold;
+    font-size:2em;
+}
+
+h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
+    font-size: 2em;
+
+}
+
+p {
+    font-family: 'Domine', serif;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    display: block;
+    clear: both;
+    margin: 20px;
+}
+
+.container {
+    display: block;
+    margin: 0 auto;
+}
+
+.btn {
+    padding: 4px 9px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.clear {
+    clear: both;
+}
+
+.msg-info p, .msg-atten p, .msg-ok p, .msg-error p {
+    font-family: 'Montserrat', sans-serif;
+    margin: 10px 0;
+}
+
+p#success {
+    color: #115809;
+    line-height: 8px;
+}
+
+
