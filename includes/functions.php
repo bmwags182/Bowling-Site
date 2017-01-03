@@ -14,8 +14,8 @@ if (!defined('included')){
 function login($user, $pass){
     $mysqli = db_connect();
    //strip all tags from varible
-    $user = strip_tags(mysqli_real_escape_string(db_connect(),$user));
-    $pass = strip_tags(mysqli_real_escape_string(db_connect(),$pass));
+    $user = strip_tags(mysqli_real_escape_string($mysqli,$user));
+    $pass = strip_tags(mysqli_real_escape_string($mysqli,$pass));
 
     $pass = md5($pass);
 
@@ -217,3 +217,43 @@ function check_authorized_page($pageID, $memberID) {
     }
 }
 
+// Check if user is trying to edit their own profile
+function check_authorized_profile($userID, $memberID) {
+    $userID = strip_tags(mysqli_real_escape_string(db_connect(), $userID));
+    $memberID = strip_tags(mysqli_real_escape_string(db_connect(), $memberID));
+
+    $sql = "SELECT * FROM `user_data` WHERE `memberID` = '$userID'";
+    $result = mysqli_query(db_connect(), $sql);
+    $result_array = mysqli_fetch_array($result);
+
+    if($result_array['memberID'] != $_SESSION['memberID']) {
+        $_SESSION['error'] = "That's not your profile.";
+        header("Location: " .DIRADMIN);
+        exit();
+    }
+}
+
+
+// Change user password
+function change_password($memberID, $oldpass, $newpass) {
+    $mysqli = db_connect();
+    // Get user from members
+    $memberID = strip_tags(mysqli_real_escape_string($mysqli, $memberID));
+    $oldpass = strip_tags(mysqli_real_escape_string($mysqli, $oldpass));
+    $nespass = strip_tags(mysqli_real_escape_string($mysqli, $newpass));
+
+    $member_query = "SELECT * FROM members WHERE memberID = '$memberID'";
+    $result = mysqli_query($mysqli, $member_query);
+    $member = mysqli_fetch_object($result) or die("Error getting member from members table" . mysqli_error($mysqli));
+    // $member = mysqli_fetch_object(mysqli_query(db_connect(), $member_query));
+
+    $oldpass = md5($oldpass);
+    $newpass = md5($newpass);
+    if ($oldpass == $member->password) {
+        $update_password_query = "UPDATE members SET password = '$newpass'";
+        mysqli_query($mysqli, $update_password_query);
+        $_SESSION['info'] = mysqli_error($mysqli);
+    } else {
+        $_SESSION['error'] = "Current password does not match.";
+    }
+}

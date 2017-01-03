@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `user_data` (
     FOREIGN KEY ('memberID') REFERENCES members(memberID)
 );
 
-INSERT INTO `user_data` (`admin`,`memberID`, `join_date`) VALUES (1, 1, CURDATE(),);
+INSERT INTO `user_data` (`admin`,`memberID`, `join_date`) VALUES (1, 1, CURDATE());
 
 CREATE TABLE IF NOT EXISTS 'games' (
     'game_id' BIGINT NOT NULL AUTO_INCREMENT,
