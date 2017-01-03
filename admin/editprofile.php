@@ -36,15 +36,71 @@ if(isset($_POST['submit'])){
     $quote = mysqli_real_escape_string($mysqli, $_POST['quote']);
     $bio = mysqli_real_escape_string($mysqli, $_POST['bio']);
 
-    $result = mysqli_query($mysqli, "UPDATE user_data SET email='$email', first_name='$fname', last_name='$lname', birthday='$birthday', location='$location', quote='$quote', about_me='$bio' WHERE memberID='$memberID'");
-    if ($result == true) {
-        $_SESSION['success'] = 'Profile Updated';
-        header('Location: '.DIRADMIN);
-        exit();
+    // Photo Handler
+    if(isset($_POST['photo']) && $_POST['photo'] != '' ) {
+        $target_dir = "/uploads/";
+        $target_file = $target_dir . basename($_FILES['photo']['name']);
+        $image_file_type = pathinfo($target_file, PATHINFO_EXTENSION);
+
+        // Check if image is actually an image
+        $check = getimagesize($target_dir.$_FILES['photo']['tmp_name']);
+        if ($check !== false) {
+            $_SESSION['info'] = "File was an image.";
+            $upload_ok = 1;
+        } else {
+            $_SESSION['info'] = "File was not an image.";
+            $upload_ok = 0;
+        }
+
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            $_SESSION['error'] = "File already exists.";
+            $upload_ok = 0;
+        }
+        // Check file size
+        if ($_FILES["photo"]["size"] > 500000) {
+            $_SESSION['error'] = "Filesize is too large";
+            $upload_ok = 0;
+        }
+        // Allow certain file formats
+        if($image_file_type != "jpg" && $image_file_type != "png" && $image_file_type != "jpeg"
+        && $image_file_type != "gif" ) {
+            $_SESSION['error'] = "Sorry, only jpg, jpeg, png, or gif files are allowed";
+            $upload_ok = 0;
+        }
+        // Check if $uploadOk is set to 0 by an error
+        if ($upload_ok == 1) {
+            if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
+                $_SESSION['success'] = "The file ". basename( $_FILES["photo"]["name"]). " has been uploaded.";
+            } else {
+                $_SESSION['error'] = "Sorry, there was an error uploading your file.";
+            }
+        // if everything is ok, try to upload file
+        }
+
+        $result = mysqli_query($mysqli, "UPDATE user_data SET email='$email', first_name='$fname', last_name='$lname', birthday='$birthday', location='$location', quote='$quote', about_me='$bio' avatar='$target_file' WHERE memberID='$memberID'") or die("Error updating user " . mysqli_error($mysqli));
+        if ($result == true) {
+            $_SESSION['success'] = 'Profile Updated';
+            header('Location: '.DIRADMIN);
+            exit();
+        } else {
+            $_SESSION['error'] = 'Profile Update Failed' . mysqli_error($mysqli);
+            header('Location: ' . DIRADMIN );
+            exit();
+        }
     } else {
-        $_SESSION['error'] = 'Profile Update Failed' . mysqli_error($mysqli);
-        header('Location: ' . DIRADMIN );
-        exit();
+        // No photo uploaded
+
+        $result = mysqli_query($mysqli, "UPDATE user_data SET email='$email', first_name='$fname', last_name='$lname', birthday='$birthday', location='$location', quote='$quote', about_me='$bio' WHERE memberID='$memberID'") or die("Error updating user " . mysqli_error($mysqli));
+        if ($result == true) {
+            $_SESSION['success'] = 'Profile Updated';
+            header('Location: '. DIRADMIN );
+            exit();
+        } else {
+            $_SESSION['error'] = 'Profile Update Failed' . mysqli_error($mysqli);
+            header('Location: ' . DIRADMIN );
+            exit();
+        }
     }
 }
 
@@ -103,11 +159,12 @@ $row = mysqli_fetch_object($q);
 
 <!-- PUT FORM BELOW THIS -->
 
-<form method="post" action="" >
+<form method="post" action="" enctype="multipart/form-data" >
 <?php if ($row->avatar != '') {?>
 <img src="<?php echo $row->avatar;?>" alt="Profile Image" />
 <?php } ?>
-<!-- User Photo upload will go here near the top -->
+<p>Profile Image:<br /><input type="hidden" name="MAX_FILE_SIZE" value="500000" /><input type="file" name="photo" />
+</p>
 <p>Username:<br /> <input name="username" type="text" value="<?php echo $row->username;?>" size="103" disabled />
 </p>
 <p>Email:<br /><input type="text" name="email" value="<?php if($row->email != '') { echo $row->email; } ?>" />
