@@ -7,7 +7,7 @@
 +--------------------------------------------------------+*/
 
 if (!defined('included')){
-die('You cannot access this file directly!');
+    die('You cannot access this file directly!');
 }
 
 //log user in ---------------------------------------------------
@@ -49,6 +49,7 @@ function logged_in() {
 	}
 }
 
+// Checks logged in status on admin pages.
 function login_required() {
 	if(logged_in()) {
 		return true;
@@ -58,6 +59,8 @@ function login_required() {
 	}
 }
 
+
+// Log user out
 function logout(){
 	unset($_SESSION['authorized']);
     unset($_SESSION['memberID']);
@@ -65,6 +68,8 @@ function logout(){
 	exit();
 }
 
+// Registers new user and creates their data in the user_data table as well
+// Gets values for $username, $password, and $confirm from registration form $_POST
 function register_user($username, $password, $confirm) {
     $user = strip_tags(mysqli_real_escape_string(db_connect(),$username));
     $mysqli = db_connect();
@@ -82,26 +87,26 @@ function register_user($username, $password, $confirm) {
             $sql = "INSERT INTO `members` (username, password) VALUES ('$username', '$password')";
             $result = mysqli_query($mysqli, $sql);
             if ($result != true) {
+                // Insert new user into members failed
                 $_SESSION['error'] = "Unable to insert user into members table";
             } else {
+                // New user created, now create user_data
                 $last_user_query = "SELECT memberID FROM members WHERE memberID = ( SELECT max(memberID) FROM members)";
                 $last_user_data = mysqli_query($mysqli, $last_user_query);
                 $last_user_data = mysqli_fetch_array($last_user_data);
                 $last_user = $last_user_data['memberID'];
-                $_SESSION['info'] = $last_user;
                 $user_data_query = "INSERT INTO user_data (admin, memberID, join_date) VALUES (0, '$last_user', CURDATE())";
                 $result = mysqli_query($mysqli, $user_data_query) or die("Registration failure " . mysqli_error($mysqli));
                 if ($result == true) {
+                    // User data stored
                     $_SESSION['success'] = "Registration Successful";
                 } else {
+                    // Unable to store user data
                     $_SESSION['error'] = "Unable to update user data";
-
                 }
             }
         }
     }
-
-
 }
 
 // Render error messages
@@ -130,16 +135,17 @@ function messages() {
 }
 
 function errors($error){
-	if (!empty($error))
-	{
+	if (!empty($error)) {
 			$i = 0;
 			while ($i < count($error)){
 			$showError.= "<div class=\"msg-error\">".$error[$i]."</div>";
 			$i ++;}
 			echo $showError;
-	}// close if empty errors
-} // close function
+	}
+}
 
+
+// Connect to database from config file
 function db_connect() {
     $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
     return $mysqli;
@@ -177,6 +183,8 @@ function get_frames($form_data) {
     }
 }
 
+
+// Check if user is authorized to edit game
 function check_authorized_game($gameID, $memberID) {
     $gameID = strip_tags(mysqli_real_escape_string(db_connect(), $gameID));
     $memberID = strip_tags(mysqli_real_escape_string(db_connect(), $memberID));
@@ -192,6 +200,8 @@ function check_authorized_game($gameID, $memberID) {
     }
 }
 
+
+// Checkk if user is authorized to edit page
 function check_authorized_page($pageID, $memberID) {
     $pageID = strip_tags(mysqli_real_escape_string(db_connect(), $pageID));
     $memberID = strip_tags(mysqli_real_escape_string(db_connect(), $memberID));
