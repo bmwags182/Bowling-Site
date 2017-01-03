@@ -27,7 +27,7 @@ if(logged_in()) {header('Location: '.DIRADMIN);}
 
         <?php
         if(isset($_POST['register'])) {
-            register($_POST['username'], $_POST['password'], $_POST['confirm_password']);
+            register_user($_POST['username'], $_POST['password'], $_POST['confirm_password']);
         }
         ?>
 

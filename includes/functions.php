@@ -65,7 +65,7 @@ function logout(){
 	exit();
 }
 
-function register($username, $password, $confirm) {
+function register_user($username, $password, $confirm) {
     $user = strip_tags(mysqli_real_escape_string(db_connect(),$username));
     $mysqli = db_connect();
     $sql = "SELECT * FROM `members` WHERE `username` = '$user'";
@@ -76,15 +76,27 @@ function register($username, $password, $confirm) {
         if ($password != $confirm ) {
             $_SESSION['error'] = "Passwords Do Not Match";
         } else {
-            $password = strip_tags(mysqli_real_escape_string(db_connect(), $password));
+            $password = strip_tags(mysqli_real_escape_string($mysqli, $password));
             $password = md5($password);
 
             $sql = "INSERT INTO `members` (username, password) VALUES ('$username', '$password')";
-            $result = mysqli_query(db_connect(), $sql);
-            if ($result == true) {
-                $_SESSION['success'] = "Registration Success";
+            $result = mysqli_query($mysqli, $sql);
+            if ($result != true) {
+                $_SESSION['error'] = "Unable to insert user into members table";
             } else {
-                $_SESSION['error'] = "Registration Failed";
+                $last_user_query = "SELECT memberID FROM members WHERE memberID = ( SELECT max(memberID) FROM members)";
+                $last_user_data = mysqli_query($mysqli, $last_user_query);
+                $last_user_data = mysqli_fetch_array($last_user_data);
+                $last_user = $last_user_data['memberID'];
+                $_SESSION['info'] = $last_user;
+                $user_data_query = "INSERT INTO user_data (admin, memberID, join_date) VALUES (0, '$last_user', CURDATE())";
+                $result = mysqli_query($mysqli, $user_data_query) or die("Registration failure " . mysqli_error($mysqli));
+                if ($result == true) {
+                    $_SESSION['success'] = "Registration Successful";
+                } else {
+                    $_SESSION['error'] = "Unable to update user data";
+
+                }
             }
         }
     }
