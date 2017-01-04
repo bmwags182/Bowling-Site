@@ -59,7 +59,7 @@ if (isset($username) && $username != '') {
 }
 ?>
 <p class="legend"><span style="background-color: #333; height: 16px, width: 16px; margin-left: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp; Shaded rows are league games<span class="all-games bbutton"><a href="<?php echo DIR.'/all-games.php/?all';?>">All Games</a></span></p>
-<table><tr><th><strong>Date</strong></th><?php if (!isset($user) || $user == '') { echo '<th><strong>Photo</strong></th><th><strong>Username</th>'; } ?></strong></th><th><strong>Score</strong></th><th><strong>Action</strong></th></tr>
+<table><tr><th id="date"><strong>Date</strong></th><?php if (!isset($user) || $user == '') { echo '<th id="avatar"><strong>Photo</strong></th><th id="username"><strong>Username</th>'; } ?></strong></th><th id="score"><strong>Score</strong></th><th id="action"><strong>Action</strong></th></tr>
 
 <?php
 if (isset($user) && $user != '' ) {
@@ -72,9 +72,9 @@ if (isset($user) && $user != '' ) {
         }
         $phpdate = strtotime($game->date);
         $game_date = date('n-j-Y', $phpdate);
-        echo '<td>' . $game_date .'</td>';
-        echo '<td>' . $game->score . '</td>';
-        echo '<td><a href="' . DIR . '/view-game/?game=' . $game->game_id . '">View</a></td>';
+        echo '<td id="date">' . $game_date .'</td>';
+        echo '<td id="score">' . $game->score . '</td>';
+        echo '<td id="action"><a href="' . DIR . '/view-game/?game=' . $game->game_id . '">View</a></td>';
         echo '</tr>';
     }
 } else {
@@ -87,12 +87,12 @@ if (isset($user) && $user != '' ) {
         }
         $phpdate = strtotime($game->date);
         $game_date = date('n-j-Y', $phpdate);
-        echo '<td>' . $game_date .'</td>';
-        echo '<td><img src="' . $game->avatar . '" style="max-height: 64px;" alt="' . $game->username . '" /></td>';
+        echo '<td id="date">' . $game_date .'</td>';
+        echo '<td id="avatar"><img src="' . $game->avatar . '" style="max-height: 64px;" alt="' . $game->username . '" /></td>';
         $user_link = DIR . "/user-profile.php/?user=" . $game->member_id;
-        echo '<td><a href="' . $user_link . '">' . $game->username .'</a></td>';
-        echo '<td>' . $game->score . '</td>';
-        echo '<td><a href="' . DIR . '/view-game.php/?game=' . $game->game_id . '">View</a></td>';
+        echo '<td id="username"><a href="' . $user_link . '">' . $game->username .'</a></td>';
+        echo '<td id="score">' . $game->score . '</td>';
+        echo '<td id="action"><a href="' . DIR . '/view-game.php/?game=' . $game->game_id . '">View</a></td>';
         echo '</tr>';
     }
 }
