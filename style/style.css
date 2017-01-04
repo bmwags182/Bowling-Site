@@ -249,6 +249,10 @@ span.avg {
 	margin-right:15px;
 }
 
+span.all-games {
+	float: right;
+}
+
 @media screen and ( max-width: 449px ) {
 	table {
 		font-size: 12px;

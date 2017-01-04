@@ -13,10 +13,12 @@ $mysqli = db_connect();
 
 <?php
 
-if((isset($_SESSION['memberID']) && $_SESSION['memberID'] != '') && !isset($_GET['user']) ) {
+if((isset($_SESSION['memberID']) && $_SESSION['memberID'] != '') && (!isset($_GET['user']) && !isset($_GET['all'])) ) {
     $user = $_SESSION['memberID'];
     $user_filter = "WHERE member_id = '$user'";
-} elseif ((isset($_GET['user']) && $_GET['user'] != '' ) && !isset($_SESSION['memberID'])) {
+} elseif (isset($_GET['all'])) {
+    $user_filter = "WHERE member_id != 0";
+} elseif ((isset($_GET['user']) && $_GET['user'] != '' )) {
     $user = mysqli_real_escape_string($mysqli, $_GET['user']);
     $user_filter = "WHERE member_id = '$user'";
 } else {
@@ -56,7 +58,7 @@ if (isset($username) && $username != '') {
     <?php
 }
 ?>
-<p><span style="background-color: #333; height: 16px, width: 16px; margin-left: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp; Shaded rows are league games</p>
+<p><span style="background-color: #333; height: 16px, width: 16px; margin-left: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp; Shaded rows are league games<span class="all-games bbutton"><a href="<?php echo DIR.'/all-games.php/?all';?>">All Games</a></span></p>
 <table><tr><th><strong>Date</strong></th><?php if (!isset($user) || $user == '') { echo '<th><strong>Username</th>'; }?></strong></th><th><strong>Score</strong></th><th><strong>Action</strong></th></tr>
 
 <?php
