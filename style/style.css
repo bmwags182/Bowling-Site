@@ -224,6 +224,12 @@ table th {
 table tr td {
 	border:1px solid #DDDDDD;
 	padding:5px 6px;
+	text-align: center;
+}
+
+table tr #avatar img {
+    display: block;
+    margin: 0 auto;
 }
 
 table tr.alt td {
