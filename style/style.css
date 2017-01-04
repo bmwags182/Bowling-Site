@@ -244,6 +244,10 @@ table .league a {
 	color: #fff;
 }
 
+.legend {
+	width: 98%;
+}
+
 span.avg {
 	float: right;
 	margin-right:15px;

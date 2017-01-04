@@ -27,9 +27,9 @@ if((isset($_SESSION['memberID']) && $_SESSION['memberID'] != '') && (!isset($_GE
 
 
 
-$user_games_query = "SELECT games.date as date, games.member_id as member_id,   games.score as score, games.full_game as full_game, games.league_play as league_play, games.game_id as game_id, members.memberID as memberID, members.username as username FROM games INNER JOIN members on games.member_id = members.memberID " . $user_filter . " ORDER BY score DESC";
+$user_games_query = "SELECT games.date AS date, games.member_id AS member_id, games.score AS score, games.full_game AS full_game, games.league_play AS league_play, games.game_id AS game_id, members.memberID AS memberID, members.username AS username, user_data.avatar AS avatar FROM games INNER JOIN members ON games.member_id = members.memberID INNER JOIN user_data ON user_data.memberID = games.member_id " . $user_filter . " ORDER BY score DESC";
 
-$user_games = mysqli_query(db_connect(), $user_games_query);
+$user_games = mysqli_query(db_connect(), $user_games_query) or die("failed: " . mysqli_error($mysqli));
 
 if (isset($user) && $user != '' ){
     $user_id_filter = "WHERE memberID = '$user'";
@@ -58,8 +58,8 @@ if (isset($username) && $username != '') {
     <?php
 }
 ?>
-<p><span style="background-color: #333; height: 16px, width: 16px; margin-left: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp; Shaded rows are league games<span class="all-games bbutton"><a href="<?php echo DIR.'/all-games.php/?all';?>">All Games</a></span></p>
-<table><tr><th><strong>Date</strong></th><?php if (!isset($user) || $user == '') { echo '<th><strong>Username</th>'; }?></strong></th><th><strong>Score</strong></th><th><strong>Action</strong></th></tr>
+<p class="legend"><span style="background-color: #333; height: 16px, width: 16px; margin-left: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp; Shaded rows are league games<span class="all-games bbutton"><a href="<?php echo DIR.'/all-games.php/?all';?>">All Games</a></span></p>
+<table><tr><th><strong>Date</strong></th><?php if (!isset($user) || $user == '') { echo '<th><strong>Photo</strong></th><th><strong>Username</th>'; } ?></strong></th><th><strong>Score</strong></th><th><strong>Action</strong></th></tr>
 
 <?php
 if (isset($user) && $user != '' ) {
@@ -84,7 +84,8 @@ if (isset($user) && $user != '' ) {
             echo '<tr>';
         }
         echo '<td>' . $game->date . '</td>';
-        $user_link = DIR . "/all-games.php/?user=" . $game->member_id;
+        echo '<td><img src="' . $game->avatar . '" style="max-height: 64px;" alt="' . $game->username . '" /></td>';
+        $user_link = DIR . "/user-profile.php/?user=" . $game->member_id;
         echo '<td><a href="' . $user_link . '">' . $game->username .'</a></td>';
         echo '<td>' . $game->score . '</td>';
         echo '<td><a href="' . DIR . '/view-game.php/?game=' . $game->game_id . '">View</a></td>';
