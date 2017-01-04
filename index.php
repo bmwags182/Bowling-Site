@@ -27,6 +27,9 @@ include('includes/header.php');
 
 	//print the pages content
 	echo "<h1>$r->page_title</h2>";
+
+	messages();
+
 	echo $r->page_content;
 	?>
 

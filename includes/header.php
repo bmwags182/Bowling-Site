@@ -36,7 +36,7 @@ if (isset($page_title) && $page_title != '') {
     <div id="navigation">
     <div class="menu">
     <a href="<?php echo DIR;?>">Home</a>
-    <a href="<?php echo DIR . '/all-games.php/'; ?>">Vew Games</a>
+    <a href="<?php echo DIR . '/all-games.php/'; ?>">View Games</a>
     <p style="text-align:center; display:inline"><a href="<?php echo DIR;?>" class="logo"><img src="images/logo.png" alt="<?php echo SITETITLE;?>" title="<?php echo SITETITLE;?>" border="0" /></a></p><!-- close logo -->
     <p style="float: right;color: #f00;font-size: 24px;margin-top: 0;top: 5px;right: 10px;position: absolute;"><?php if (isset($memberID) && $memberID != '') { echo $memberID; }?></p>
         </div>
