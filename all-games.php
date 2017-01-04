@@ -70,7 +70,9 @@ if (isset($user) && $user != '' ) {
         } else {
             echo '<tr>';
         }
-        echo '<td>' . $game->date .'</td>';
+        $phpdate = strtotime($game->date);
+        $game_date = date('n-j-Y', $phpdate);
+        echo '<td>' . $game_date .'</td>';
         echo '<td>' . $game->score . '</td>';
         echo '<td><a href="' . DIR . '/view-game/?game=' . $game->game_id . '">View</a></td>';
         echo '</tr>';
@@ -83,7 +85,9 @@ if (isset($user) && $user != '' ) {
         } else {
             echo '<tr>';
         }
-        echo '<td>' . $game->date . '</td>';
+        $phpdate = strtotime($game->date);
+        $game_date = date('n-j-Y', $phpdate);
+        echo '<td>' . $game_date .'</td>';
         echo '<td><img src="' . $game->avatar . '" style="max-height: 64px;" alt="' . $game->username . '" /></td>';
         $user_link = DIR . "/user-profile.php/?user=" . $game->member_id;
         echo '<td><a href="' . $user_link . '">' . $game->username .'</a></td>';
