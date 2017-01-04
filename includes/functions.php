@@ -124,8 +124,25 @@ function messages() {
         echo "$message_error";
     }
     if (isset($_SESSION['info']) && $_SESSION['info'] != '') {
-        $message_info = '<div class="msg-info"><p id="info" class="message">'.$_SESSION['info'].'</p></div>';
-        echo "$message_info";
+        foreach ($_SESSION['info'] as $message) {
+            if (is_array($message) == true) {
+                foreach($message as $key => $info) {
+                    if (is_array($info) == true) {
+                        foreach ($info as $key => $test) {
+                            $message_info = '<div class="msg-info"><p id="info" class="message">'.$key.' => '.$test.'</p></div>';
+                            echo "$message_info";
+
+                        }
+                    } else {
+                        $message_info = '<div class="msg-info"><p id="info" class="message">'.$key.' => '.$info.'</p></div>';
+                        echo "$message_info";
+                    }
+                }
+            } else {
+                $message_info = '<div class="msg-info"><p id="info" class="message">'.$message.'</p></div>';
+                echo "$message_info";
+            }
+        }
     }
     $_SESSION['success'] = '';
     $_SESSION['attention'] = '';

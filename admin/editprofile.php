@@ -37,70 +37,53 @@ if(isset($_POST['submit'])){
     $bio = mysqli_real_escape_string($mysqli, $_POST['bio']);
 
     // Photo Handler
-    if(isset($_POST['photo']) && $_POST['photo'] != '' ) {
-        $target_dir = "/uploads/";
-        $target_file = $target_dir . basename($_FILES['photo']['name']);
-        $image_file_type = pathinfo($target_file, PATHINFO_EXTENSION);
 
-        // Check if image is actually an image
-        $check = getimagesize($target_dir.$_FILES['photo']['tmp_name']);
-        if ($check !== false) {
-            $_SESSION['info'] = "File was an image.";
-            $upload_ok = 1;
-        } else {
-            $_SESSION['info'] = "File was not an image.";
-            $upload_ok = 0;
-        }
 
-        // Check if file already exists
-        if (file_exists($target_file)) {
-            $_SESSION['error'] = "File already exists.";
-            $upload_ok = 0;
+
+    if (isset($_FILES) && $_FILES != '') {
+        /*
+        $_SESSION['info'][] = 'FILES'; // used for debugging
+        $_SESSION['info'][] = $_FILES; // used for debugging
+        */
+
+
+        $upload_dir = '/home/tubaking182/public_html/deathtoclients.com/uploads/' . md5($memberID) . '/';
+
+        if (!file_exists($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
         }
-        // Check file size
-        if ($_FILES["photo"]["size"] > 500000) {
-            $_SESSION['error'] = "Filesize is too large";
-            $upload_ok = 0;
-        }
-        // Allow certain file formats
-        if($image_file_type != "jpg" && $image_file_type != "png" && $image_file_type != "jpeg"
-        && $image_file_type != "gif" ) {
-            $_SESSION['error'] = "Sorry, only jpg, jpeg, png, or gif files are allowed";
-            $upload_ok = 0;
-        }
-        // Check if $uploadOk is set to 0 by an error
-        if ($upload_ok == 1) {
-            if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
-                $_SESSION['success'] = "The file ". basename( $_FILES["photo"]["name"]). " has been uploaded.";
+        $upload_file = $upload_dir . basename($_FILES['photo']['name']);
+
+        if ($_FILES['photo']['error'] == UPLOAD_ERR_OK) {
+            $tmp_name = $_FILES["photo"]["tmp_name"];
+            // basename() may prevent filesystem traversal attacks;
+            // further validation/sanitation of the filename may be appropriate
+            $name = basename($_FILES["photo"]["name"]);
+            move_uploaded_file($tmp_name, $upload_file);
+            $photo = DIR . "/uploads/" . md5($memberID) . '/' . basename($_FILES['photo']['name']);
+
+            $update_photo_query = "UPDATE user_data SET avatar = '$photo' WHERE memberID = '$memberID'";
+            $result = mysqli_query($mysqli, $update_photo_query);
+            if($result == true) {
+                $_SESSION['success'] = "photo uploaded";
             } else {
-                $_SESSION['error'] = "Sorry, there was an error uploading your file.";
+                $_SESSION['error'] = 'Photo Upload Failed' . mysqli_error($mysqli);
             }
-        // if everything is ok, try to upload file
         }
 
-        $result = mysqli_query($mysqli, "UPDATE user_data SET email='$email', first_name='$fname', last_name='$lname', birthday='$birthday', location='$location', quote='$quote', about_me='$bio' avatar='$target_file' WHERE memberID='$memberID'") or die("Error updating user " . mysqli_error($mysqli));
-        if ($result == true) {
-            $_SESSION['success'] = 'Profile Updated';
-            header('Location: '.DIRADMIN);
-            exit();
-        } else {
-            $_SESSION['error'] = 'Profile Update Failed' . mysqli_error($mysqli);
-            header('Location: ' . DIRADMIN );
-            exit();
-        }
+
+    }
+
+
+    $result = mysqli_query($mysqli, "UPDATE user_data SET email='$email', first_name='$fname', last_name='$lname', birthday='$birthday', location='$location', quote='$quote', about_me='$bio' WHERE memberID='$memberID'") or die("Error updating user " . mysqli_error($mysqli));
+    if ($result == true) {
+        $_SESSION['success'] = 'Profile Updated';
+        header('Location: '. DIRADMIN . 'editprofile.php');
+        exit();
     } else {
-        // No photo uploaded
-
-        $result = mysqli_query($mysqli, "UPDATE user_data SET email='$email', first_name='$fname', last_name='$lname', birthday='$birthday', location='$location', quote='$quote', about_me='$bio' WHERE memberID='$memberID'") or die("Error updating user " . mysqli_error($mysqli));
-        if ($result == true) {
-            $_SESSION['success'] = 'Profile Updated';
-            header('Location: '. DIRADMIN );
-            exit();
-        } else {
-            $_SESSION['error'] = 'Profile Update Failed' . mysqli_error($mysqli);
-            header('Location: ' . DIRADMIN );
-            exit();
-        }
+        $_SESSION['error'] = 'Profile Update Failed' . mysqli_error($mysqli);
+        header('Location: ' . DIRADMIN . 'editprofile.php');
+        exit();
     }
 }
 
@@ -136,7 +119,7 @@ if(isset($_POST['submit'])){
 <h1>Edit Profile</h1>
 
 <?php
-
+messages();
 
 $id = $_SESSION['memberID'];
 $id = mysqli_real_escape_string($mysqli, $id);
