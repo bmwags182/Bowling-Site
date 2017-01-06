@@ -251,18 +251,18 @@ table .league a {
 }
 
 .legend {
-	width: 98%;
+	clear: both;
 }
 
 span.avg {
 	float: right;
 	margin-right:15px;
 }
-
+/*
 span.all-games {
 	float: right;
 }
-
+*/
 @media screen and ( max-width: 449px ) {
 	table {
 		font-size: 12px;

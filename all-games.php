@@ -71,8 +71,8 @@ if (isset($user) && $user != '') {
 }
 messages();
 ?>
-<div class="filter-form"><form method="post" action=""><p>Min Date: <input type="date" name="min-date" />&nbsp;&nbsp;Max Date: <input type="date" name="max-date" /></p>
-<p>Min Score: <input type="number" name="min-score" />&nbsp;&nbsp;Max Score:<input type="number" name="max-score" /></p>
+<div class="filter-form"><form method="post" action=""><p>Min Date: <input type="date" name="min-date" /></p><p>Max Date: <input type="date" name="max-date" /></p>
+<p>Min Score: <input type="number" name="min-score" /></p><p>Max Score:<input type="number" name="max-score" /></p>
 <?php /*
 <p>Username: <select name="username">
 <?php
@@ -86,9 +86,11 @@ while($row = mysqli_fetch_object($result)) {
 ?>
 </select>
 League Games: <input type="radio" name="league" value="1">Yes <input type="radio" name="league" value="0">No</p>
-<input class="button" type="submit" name="filter" value="Filter Results" />
+<p style="display:inline;"><span class="all-games"><a class="button" href="<?php echo DIR.'/all-games.php/?all';?>">All Games</a></span>
+<input class="button" type="submit" name="filter" value="Filter Results" style="display:inline;" /></p>
 </form>
-<p class="legend"><span style="background-color: #333; height: 16px, width: 16px; margin-left: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp; Shaded rows are league games<span class="all-games"><a class="button" href="<?php echo DIR.'/all-games.php/?all';?>">All Games</a></span></p>
+</div>
+<p class="legend"><span style="background-color: #333; height: 16px, width: 16px; margin-left: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp; Shaded rows are league games</p>
 <table><tr><th id="date"><strong>Date</strong></th><?php if (!isset($user) || $user == '') { echo '<th id="avatar"><strong>Photo</strong></th><th id="username"><strong>Username</th>'; } ?></strong></th><th id="score"><strong>Score</strong></th><th id="action"><strong>Action</strong></th></tr>
 
 <?php
@@ -104,7 +106,7 @@ if (isset($user) && $user != '' ) {
         $game_date = date('n-j-Y', $phpdate);
         echo '<td id="date">' . $game_date .'</td>';
         echo '<td id="score">' . $game->score . '</td>';
-        echo '<td id="action"><a href="' . DIR . '/view-game/?game=' . $game->game_id . '">View</a></td>';
+        echo '<td id="action"><a href="' . DIR . '/view-game.php?game=' . $game->game_id . '">View</a></td>';
         echo '</tr>';
     }
 } else {
