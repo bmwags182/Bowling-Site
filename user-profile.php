@@ -52,7 +52,7 @@ $join_date = date('n-j-Y', $phpdate);
 <h1><?php echo $member->username;?>'s Profile</h1>
 <div class="profile-photo"><img src="<?php echo $member->avatar;?>" alt="<?php echo $member->username;?>" <?php if($member->admin == 1) { echo 'id="admin"';}?> />
 <p id="quote"><?php echo $member->quote;?></p></div>
-<div class="main-info"><h3><?php echo $member->fname . " " . $member->lname; if($member->admin == 1) { echo "  - ADMIN";}?></h3><p class="bbutton" id="view-games"><a href="<?php echo DIR . '/all-games.php/?user=' . $member->memberID; ?>" title="<?php echo $member->username;?>'s games" >View Games</a></p>
+<div class="main-info"><h3><?php echo $member->fname . " " . $member->lname; if($member->admin == 1) { echo "  - ADMIN";}?></h3><p class="bbutton" id="view-games"><a class="button" href="<?php echo DIR . '/all-games.php/?user=' . $member->memberID; ?>" title="<?php echo $member->username;?>'s games" >View Games</a></p>
 <p>Email: <a href="mailto:<?php echo $member->email;?>" rel="nofollow"><?php echo $member->email ?></a> &nbsp;&nbsp; Location: <?php echo $member->location; ?></p>
 <p>Birthday: <?php echo $birthday; ?> &nbsp; &nbsp; Join Date: <?php echo $join_date; ?></p>
 </div>

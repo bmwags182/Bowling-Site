@@ -274,3 +274,48 @@ function change_password($memberID, $oldpass, $newpass) {
         $_SESSION['error'] = "Current password does not match.";
     }
 }
+
+
+function game_filter($filter_array) {
+    $game_filter = array();
+
+    if(isset($_POST['league']) && $_POST['league'] != '') {
+        if($_POST['league'] == 1){
+            $game_filter[] = "league_play = 'true'";
+        } elseif($_POST['league'] == 0) {
+            $game_filter[] = "league_play = 'false'";
+        } else {
+            $_SESSION['info'][] = $_POST['league'];
+        }
+    }
+
+    if(isset($_POST['max-score']) && $_POST['max-score'] != '') {
+        $max_score = mysqli_real_escape_string(db_connect(),$_POST['max-score']);
+        $game_filter[] = "score < '$max_score'";
+    }
+
+    if(isset($_POST['min-score']) && $_POST['min-score'] != '') {
+        $min_score = mysqli_real_escape_string(db_connect(),$_POST['min-score']);
+        $game_filter[] = "score > '$min_score'";
+    }
+
+    if(isset($_POST['max-date']) && $_POST['max-date'] != '') {
+        $max_date = mysqli_real_escape_string(db_connect(),$_POST['max-date']);
+        $game_filter[] = "date <= '$max_date'";
+    }
+
+    if(isset($_POST['min-date']) && $_POST['min-date'] != '') {
+        $min_date = mysqli_real_escape_string(db_connect(),$_POST['min-date']);
+        $game_filter[] = "date >= '$min_date'";
+    }
+
+/*
+    if(isset($_POST['username']) && $_POST['username'] != 'all' && $_POST['username'] != '') {
+        $username = mysqli_real_escape_string(db_connect(),$_POST['username']);
+        $game_filter[] = "username = '$username'";
+    }
+*/
+    $game_filter = implode(' AND ', $game_filter);
+
+    return($game_filter);
+}

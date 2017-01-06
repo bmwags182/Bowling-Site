@@ -45,6 +45,7 @@
     <ul class="menu">
         <li><a href="<?php echo DIRADMIN;?>">Admin</a></li>
         <li><a href="<?php echo DIR . "/all-games.php/";?>" target="_blank">My Games</a></li>
+        <li><a href="<?php echo DIRADMIN . "/editprofile.php";?>">Edit Profile</a></li>
         <li><a href="<?php echo DIRADMIN;?>?logout">Logout</a></li>
     </ul>
 </div>
