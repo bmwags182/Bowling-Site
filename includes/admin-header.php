@@ -11,7 +11,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?php echo SITETITLE;?></title>
+<title>
+<?php
+if(isset($page['title']) && $page['title'] != '' ) {
+    echo $page['title'];
+} else {
+    echo SITETITLE;
+}
+?></title>
 <link href="<?php echo DIR;?>/style/style.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo DIR;?>/style/starter.css" rel="stylesheet" type="text/css" />
 <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=0, initial-scale=1">
