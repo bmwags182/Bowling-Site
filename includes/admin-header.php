@@ -23,6 +23,7 @@ if(isset($page['title']) && $page['title'] != '' ) {
 <link href="<?php echo DIR;?>/style/starter.css" rel="stylesheet" type="text/css" />
 <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=0, initial-scale=1">
 <link href="https://fonts.googleapis.com/css?family=Anton|Domine|Montserrat|Titillium+Web" rel="stylesheet">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script language="JavaScript" type="text/javascript">
     function delpage(id, title)
     {

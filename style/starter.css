@@ -80,4 +80,87 @@ p#success {
     line-height: 8px;
 }
 
+button.score-btn {
+    font-size: 16px;
+    padding: 5px 9px;
+    margin: 5px;
+}
 
+.hidden {
+    display: none;
+}
+
+.frame {
+    width: 8%;
+    height: 150px;
+    display: inline-block;
+    margin: 25px -3px;
+    border: 2px solid #000;
+}
+
+.frame-header {
+    background-color: #bbbb9d;
+    line-height:36px;
+    margin-top: -16px;
+}
+
+.frame-header p {
+    font-weight: bold;
+    text-align:center;
+}
+
+.frame-body {
+    background-color: #fafad2;
+    width: 100%;
+    height: 75%;
+    margin-top: -16px;
+    border-top: 2px solid #000;
+}
+
+.frame-top {
+    height: 40%;
+    margin-right: -2px;
+    margin-top: -16px;
+}
+
+#frame10 .frame-top {
+    margin-top: 0;
+}
+
+.ballbox {
+    height: 100%;
+    width: 50%;
+    display: inline;
+    text-align: center;
+}
+
+.strikebox {
+    width: 40%;
+    border: solid 2px #000;
+    height: 100%;
+    float: right;
+    margin-right: -2px;
+    margin-top: -2px;
+    display: inline;
+    text-align: center;
+}
+
+.ballbox.strikebox10 {
+    width: 32%;
+    border: 2px solid #000;
+    display: inherit;
+    margin-top: -2px;
+    margin-left: -2px;
+    float: left;
+    text-align: center;
+}
+
+.strikebox10:not(.ballbox) {
+    width: 32%;
+    border: 2px solid #000;
+    height: 100%;
+    float: left;
+    margin-top: -2px;
+    margin-left: -2px;
+    text-align: center;
+}
