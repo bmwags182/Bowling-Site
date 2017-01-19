@@ -2,6 +2,8 @@
 /*-------------------------------------------------------+
 | Bowling Statistics
 | Home Page
+| This page will be created better at a later date
+| this was created as a placeholder while I fix the backend
 +--------------------------------------------------------+
 | Author: Bret Wagner  Email: bretwagner@bwagner-webdev.com
 +--------------------------------------------------------+*/
