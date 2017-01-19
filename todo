@@ -1,3 +1,6 @@
+Setup:
+  ☐ create initialization file which creates the proper tables in the database configured in the ./includes/config.php
+
 Home:
   ☐ @low create content 
   ☐ @low create logo 
@@ -22,3 +25,15 @@ Frontend:
 
 Javascript:
   ☐ @high game input should be done using mainly javascript as seen on bowlinggenius.com
+
+User Data:
+  _this data will be json encoded into the members table_
+ **user_level** (will determine user level abilities later)
+ **first_name**
+ **last_name**
+ **birthday**
+ **join_date**
+ **avatar**
+ **location**
+ **quote**
+ **about_me**
