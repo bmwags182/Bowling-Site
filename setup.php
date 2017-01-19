@@ -8,12 +8,18 @@
 CREATE TABLE IF NOT EXISTS `members` (
     `memberID` BIGINT NOT NULL AUTO_INCREMENT,
     `username` varchar(255) NOT NULL DEFAULT '',
+    `email` varchar(255) NOT NULL,
     `password` varchar(32) NOT NULL DEFAULT '',
+    `user_data` LONGTEXT NOT NULL,
     PRIMARY KEY (`memberID`)
 );
 
 INSERT INTO `members` (`memberID`, `username`, `password`) VALUES
-(1, 'admin', md5('P@$$w0rd#1'));
+(1, 'admin', bretwagner@bwagner-webdev.com, md5('P@$$w0rd#1'));
+
+
+This table will no longer be used, the columns from this table will be condensed into the members table 
+and then json encoded to reduce queries on the database.
 
 CREATE TABLE IF NOT EXISTS `user_data` (
     `user_data_id` BIGINT NOT NULL AUTO_INCREMENT,
