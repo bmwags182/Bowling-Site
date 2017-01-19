@@ -3,4 +3,20 @@ Home:
   ☐ @low create logo 
   ☐ @low create screenshots of backend pages in use
 
-  
+Users:
+  ☐ @high get average for all games for users
+  ☐ @low make front-end page for viewing all games from all users
+  ☐ @low make front end page for viewing individual game data
+
+Backend:
+  ☐ @high better score input page for game data
+  ☐ @high refactor code into classes rather than spaghetti code
+  ☐ @low store user data as a json encoded string as part of the user table rather than a whole new table for user data
+
+Frontend:
+  ☐ @low create contact page
+  ☐ @low create navigation menu
+  ☐ @high make mobile responsive first, worry about desktops later
+
+Javascript:
+  ☐ @high game input should be done using mainly javascript as seen on bowlinggenius.com
