@@ -27,13 +27,14 @@ if(logged_in()) {header('Location: '.DIRADMIN);}
 
         <?php
         if(isset($_POST['register'])) {
-            register_user($_POST['username'], $_POST['password'], $_POST['confirm_password']);
+            register_user($_POST['email'], $_POST['username'], $_POST['password'], $_POST['confirm_password']);
         }
         ?>
 
 <div id="register">
     <p><?php messages();?></p>
     <form method="post" action="">
+    <p><label><strong>Email</strong><input type="text" name="email" /></label></p>
     <p><label><strong>Username</strong><input type="text" name="username" /></label></p>
     <p><label><strong>Password</strong><input type="password" name="password" /></label></p>
     <p><label><strong>Confirm Password</strong><input type="password" name="confirm_password" /></label></p>

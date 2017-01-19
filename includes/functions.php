@@ -154,13 +154,13 @@ function messages() {
 function errors($error){
 	if (!empty($error)) {
 			$i = 0;
-			while ($i < count($error)){
-			$showError.= "<div class=\"msg-error\">".$error[$i]."</div>";
-			$i ++;}
-			echo $showError;
+		    while ($i < count($error)) {
+			    $showError.= "<div class=\"msg-error\">".$error[$i]."</div>";
+			    $i++;
+            }
+		echo $showError;
 	}
 }
-
 
 // Connect to database from config file
 function db_connect() {
@@ -173,25 +173,35 @@ function get_frames($form_data) {
         $frames = array(
             'frame1a'  => $form_data['frame1a'],
             'frame1b'  => $form_data['frame1b'],
+            'frame1'   => $form_data['frame1'],
             'frame2a'  => $form_data['frame2a'],
             'frame2b'  => $form_data['frame2b'],
+            'frame2'   => $form_data['frame2'],
             'frame3a'  => $form_data['frame3a'],
             'frame3b'  => $form_data['frame3b'],
+            'frame3'   => $form_data['frame3'],
             'frame4a'  => $form_data['frame4a'],
             'frame4b'  => $form_data['frame4b'],
+            'frame4'   => $form_data['frame4'],
             'frame5a'  => $form_data['frame5a'],
             'frame5b'  => $form_data['frame5b'],
+            'frame5'   => $form_data['frame5'],
             'frame6a'  => $form_data['frame6a'],
             'frame6b'  => $form_data['frame6b'],
+            'frame6'   => $form_data['frame6'],
             'frame7a'  => $form_data['frame7a'],
             'frame7b'  => $form_data['frame7b'],
+            'frame7'   => $form_data['frame7'],
             'frame8a'  => $form_data['frame8a'],
             'frame8b'  => $form_data['frame8b'],
+            'frame8'   => $form_data['frame8'],
             'frame9a'  => $form_data['frame9a'],
             'frame9b'  => $form_data['frame9b'],
+            'frame9'   => $form_data['frame9'],
             'frame10a' => $form_data['frame10a'],
             'frame10b' => $form_data['frame10b'],
             'frame10c' => $form_data['frame10c'],
+            'frame10'   => $form_data['frame10'],
         );
         $frames = json_encode($frames);
         return $frames;

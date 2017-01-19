@@ -12,6 +12,8 @@ Backend:
   ☐ @high better score input page for game data
   ☐ @high refactor code into classes rather than spaghetti code
   ☐ @low store user data as a json encoded string as part of the user table rather than a whole new table for user data
+  ☐ @high require email address from users upon registration
+  ☐ @critical create lost password function to email user to reset password
 
 Frontend:
   ☐ @low create contact page
