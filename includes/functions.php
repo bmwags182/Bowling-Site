@@ -329,3 +329,14 @@ function game_filter($filter_array) {
 
     return($game_filter);
 }
+
+function random_string() {
+    $chars = "abcdefghijklmnopqrsstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    $i = 0;
+    $random_string = '';
+    while ($i < 64) {
+        $random_string .= $chars[rand(0, count($chars))];
+        $i++;
+    }
+    return $random_string;
+}

@@ -14,7 +14,7 @@ Users:
 Backend:
   ☐ @high better score input page for game data
   ☐ @high refactor code into classes rather than spaghetti code
-  ☐ @low store user data as a json encoded string as part of the user table rather than a whole new table for user data
+  ✔ @low store user data as a json encoded string as part of the user table rather than a whole new table for user data @done (17-01-20 00:43)
   ☐ @high require email address from users upon registration
   ☐ @critical create lost password function to email user to reset password
 
@@ -37,3 +37,6 @@ User Data:
  **location**
  **quote**
  **about_me**
+
+Setup:
+  ☐ @high create better setup file what actually sets up the damn project **wanker**
