@@ -2,9 +2,15 @@ Setup:
   ☐ create initialization file which creates the proper tables in the database configured in the ./includes/config.php
 
 Home:
-  ☐ @low create content 
-  ☐ @low create logo 
+  ☐ @low create content
+  ☐ @low create logo
   ☐ @low create screenshots of backend pages in use
+  ☐ @low Home page will be my resume/about me section
+  ☐ Menu will include links to my home page using my name as the anchor text
+  ☐ links to the bowling statistics project, this will have a drop down menu which direct-links to the admin panel for the bowling project
+  ☐ a map page with (bowling)pins dropped on the map at several locations and my review of the location
+  ☐ a page of my python projects, put them in the order I created them and explain each with screen shots
+  ☐ possibly create a blog page which will allow me to make my own posts and put them online quickly and easily
 
 Users:
   ☐ @high get average for all games for users
@@ -17,6 +23,7 @@ Backend:
   ✔ @low store user data as a json encoded string as part of the user table rather than a whole new table for user data @done (17-01-20 00:43)
   ☐ @high require email address from users upon registration
   ☐ @critical create lost password function to email user to reset password
+  ☐ keep bowling statistics db away from my personal posts db
 
 Frontend:
   ☐ @low create contact page
@@ -40,3 +47,4 @@ User Data:
 
 Setup:
   ☐ @high create better setup file what actually sets up the damn project **wanker**
+
