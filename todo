@@ -1,6 +1,6 @@
 Setup:
-  ☐ create initialization file which creates the proper tables in the database configured in the ./includes/config.php
-
+  ☐ @high create better setup file what actually sets up the damn project **wanker**
+  ☐ refactor code base for PDO rather than mysqli
 Home:
   ☐ @low create content 
   ☐ @low create logo 
@@ -37,6 +37,3 @@ User Data:
  **location**
  **quote**
  **about_me**
-
-Setup:
-  ☐ @high create better setup file what actually sets up the damn project **wanker**
