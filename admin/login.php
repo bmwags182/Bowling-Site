@@ -6,7 +6,7 @@
 | Author: Bret Wagner  Email: bretwagner@bwagner-webdev.com
 +--------------------------------------------------------+*/
 
- require('../includes/config.php');
+require('../includes/config.php');
 if(logged_in()) {header('Location: '.DIRADMIN);}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
